@@ -1,182 +1,204 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>时钟</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>川师附属青台山中学初2024级15班元旦晚会</title>
     <style>
-        body {
-            background-color: #333333;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-            /* 文字居中 */
-        }
+      body {
+        background-color: #333333;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        text-align: center;
+        /* 文字居中 */
+      }
 
-        h1 {
-            font-size: 28px;
-            /* 大标题字体大小 */
-            margin: 10px 0;
-            /* 上下外边距 */
-        }
+      h1 {
+        font-size: 28px;
+        /* 大标题字体大小 */
+        margin: 10px 0;
+        /* 上下外边距 */
+      }
 
-        h2 {
-            font-size: 20px;
-            /* 副标题字体大小 */
-            margin: 5px 0;
-            /* 上下外边距 */
-        }
+      h2 {
+        font-size: 20px;
+        /* 副标题字体大小 */
+        margin: 5px 0;
+        /* 上下外边距 */
+      }
 
-        footer {
-            font-size: 14px;
-            /* 页脚字体大小 */
-            position: absolute;
-            bottom: 10px;
-            /* 页脚距离底部的距离 */
-        }
+      footer {
+        font-size: 14px;
+        /* 页脚字体大小 */
+        position: absolute;
+        bottom: 10px;
+        /* 页脚距离底部的距离 */
+      }
 
-        #clock {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            position: relative;
-            border: none;
-            background: transparent;
-        }
+      #clock {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        position: relative;
+        border: none;
+        background: transparent;
+      }
 
-        .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom;
-            background-color: white;
-        }
+      .hand {
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform-origin: bottom;
+        background-color: white;
+      }
 
-        #hour {
-            width: 6px;
-            height: 50px;
-            transform: rotate(90deg);
-        }
+      #hour {
+        width: 6px;
+        height: 50px;
+        transform: rotate(90deg);
+      }
 
-        #minute {
-            width: 4px;
-            height: 70px;
-            transform: rotate(90deg);
-        }
+      #minute {
+        width: 4px;
+        height: 70px;
+        transform: rotate(90deg);
+      }
 
-        #second {
-            width: 2px;
-            height: 90px;
-            background-color: red;
-            transform: rotate(90deg);
-        }
+      #second {
+        width: 2px;
+        height: 90px;
+        background-color: red;
+        transform: rotate(90deg);
+      }
 
-        #time {
-            font-size: 18px;
-            /* 时间字体大小 */
-            margin-top: 10px;
-            /* 给时间和时钟之间一点间距 */
-        }
+      #time {
+        font-size: 18px;
+        /* 时间字体大小 */
+        margin-top: 10px;
+        /* 给时间和时钟之间一点间距 */
+      }
 
-        #date {
-            font-size: 18px;
-            /* 日期字体大小 */
-            margin-top: 5px;
-            /* 日期与时间之间的间距 */
-        }
+      #date {
+        font-size: 18px;
+        /* 日期字体大小 */
+        margin-top: 5px;
+        /* 日期与时间之间的间距 */
+      }
 
-        #countdown {
-            font-size: 24px;
-            /* 倒计时字体大小 */
-            display: none;
-            /* 初始隐藏倒计时 */
-            margin-top: 20px;
-        }
+      #countdown {
+        font-size: 24px;
+        /* 倒计时字体大小 */
+        display: none;
+        /* 初始隐藏倒计时 */
+        margin-top: 20px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <h1>川师附属青台山中学初2024级15班元旦晚会</h1>
-    <h2>Chuanshi Affiliated Qingtaishan Middle School Junior 2024 Class 15 New Year's Day Party</h2>
+    <h2>
+      Chuanshi Affiliated Qingtaishan Middle School Junior 2024 Class 15 New
+      Year's Day Party
+    </h2>
 
     <div id="clock">
-        <div id="hour" class="hand"></div>
-        <div id="minute" class="hand"></div>
-        <div id="second" class="hand"></div>
+      <div id="hour" class="hand"></div>
+      <div id="minute" class="hand"></div>
+      <div id="second" class="hand"></div>
     </div>
     <div id="time"></div>
     <div id="date"></div>
-    <div id="countdown">离元旦晚会烟花发射还剩 <span id="seconds">60</span> 秒</div>
+    <div id="countdown">
+      离元旦晚会烟花发射还剩 <span id="seconds">60</span> 秒
+    </div>
 
     <footer>by YMC</footer>
 
     <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
 
-            // 更新时钟的刻度
-            const hourDeg = ((hours % 12) + minutes / 60) * 30; // 每小时30度
-            const minuteDeg = (minutes + seconds / 60) * 6; // 每分钟6度
-            const secondDeg = seconds * 6; // 每秒6度
+        // 更新时钟的刻度
+        const hourDeg = ((hours % 12) + minutes / 60) * 30; // 每小时30度
+        const minuteDeg = (minutes + seconds / 60) * 6; // 每分钟6度
+        const secondDeg = seconds * 6; // 每秒6度
 
-            document.getElementById("hour").style.transform = `rotate(${hourDeg}deg)`;
-            document.getElementById("minute").style.transform = `rotate(${minuteDeg}deg)`;
-            document.getElementById("second").style.transform = `rotate(${secondDeg}deg)`;
+        document.getElementById(
+          "hour"
+        ).style.transform = `rotate(${hourDeg}deg)`;
+        document.getElementById(
+          "minute"
+        ).style.transform = `rotate(${minuteDeg}deg)`;
+        document.getElementById(
+          "second"
+        ).style.transform = `rotate(${secondDeg}deg)`;
 
-            // 更新时间
-            document.getElementById("time").innerText =
-                `${String(hours).padStart(2, '0')}时${String(minutes).padStart(2, '0')}分${String(seconds).padStart(2, '0')}秒`;
+        // 更新时间
+        document.getElementById("time").innerText = `${String(hours).padStart(
+          2,
+          "0"
+        )}时${String(minutes).padStart(2, "0")}分${String(seconds).padStart(
+          2,
+          "0"
+        )}秒`;
 
-            // 更新日期
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            document.getElementById("date").innerText = `${year}年${month}月${day}日`;
+        // 更新日期
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        document.getElementById(
+          "date"
+        ).innerText = `${year}年${month}月${day}日`;
 
-            // 倒计时逻辑
-            const targetTime = new Date();
-            targetTime.setHours(19);
-            targetTime.setMinutes(0);
-            targetTime.setSeconds(0);
+        // 倒计时逻辑
+        const targetTime = new Date();
+        targetTime.setHours(12); // 设置为21点
+        targetTime.setMinutes(49); // 设置为50分钟
+        targetTime.setSeconds(30); // 设置为0秒
 
-            const timeDifference = targetTime - now;
+        const timeDifference = targetTime - now;
 
-            if (timeDifference <= 60000 && timeDifference > 0) { // 如果距离19:00还有60秒
-                const countdownDiv = document.getElementById("countdown");
-                countdownDiv.style.display = 'block'; // 显示倒计时
-                const secondsLeft = Math.ceil(timeDifference / 1000);
-                document.getElementById("seconds").innerText = secondsLeft;
+        if (timeDifference <= 60000 && timeDifference > 0) {
+          // 隐藏其他元素
+          document.body.querySelector("h1").style.display = "none";
+          document.body.querySelector("h2").style.display = "none";
+          document.body.querySelector("#clock").style.display = "none";
+          document.body.querySelector("#time").style.display = "none";
+          document.body.querySelector("#date").style.display = "none";
+          document.body.querySelector("footer").style.display = "none";
 
-                // 开始倒计时
-                const countdownInterval = setInterval(() => {
-                    const currentDiff = targetTime - new Date();
-                    const remainingSeconds = Math.ceil(currentDiff / 1000);
-                    document.getElementById("seconds").innerText = remainingSeconds;
+          const countdownDiv = document.getElementById("countdown");
+          countdownDiv.style.display = "block"; // 显示倒计时
+          const secondsLeft = Math.ceil(timeDifference / 1000);
+          document.getElementById("seconds").innerText = secondsLeft;
 
-                    if (remainingSeconds <= 0) {
-                        clearInterval(countdownInterval);
-                        countdownDiv.innerText = "烟花发射时间到了！"; // 倒计时结束提示
-                    }
-                }, 1000);
-            } else if (timeDifference <= 0) {
-                document.getElementById("countdown").innerText = "烟花发射时间到了！"; // 倒计时结束提示
+          // 开始倒计时
+          const countdownInterval = setInterval(() => {
+            const currentDiff = targetTime - new Date();
+            const remainingSeconds = Math.ceil(currentDiff / 1000);
+            document.getElementById("seconds").innerText = remainingSeconds;
+
+            if (remainingSeconds <= 0) {
+              clearInterval(countdownInterval);
+              window.location.href = "fire.html"; // 跳转到 fire.html
             }
+          }, 1000);
+        } else if (timeDifference <= 0) {
+          window.location.href = "fire.html"; // 跳转到 fire.html
         }
+      }
 
-        setInterval(updateClock, 1000);
-        updateClock(); // 初始化时钟
+      setInterval(updateClock, 1000);
+      updateClock(); // 初始化时钟
     </script>
-
-</body>
-
+  </body>
 </html>
